@@ -1,4 +1,5 @@
-package com.cmcc.good2;
+package com.cmcc.inheritance;
+
 
 import java.util.Enumeration;
 import java.util.Vector;
@@ -30,7 +31,7 @@ public class Customer {
         String result = "Rental Record for " + get_name() + "\n";
 
         while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();        //取得一笔租借记。
+            com.cmcc.polymorphism.Rental each = (com.cmcc.polymorphism.Rental) rentals.nextElement();        //取得一笔租借记。
             //show figures for this rental（显示此笔租借记录）
             result += "\t" + each.get_movie().get_title() + "\t" +
                     String.valueOf(each.getCharge()) + "\n";
@@ -45,7 +46,7 @@ public class Customer {
         Enumeration rentals = _rentals.elements();
         String result = "<H1>Rentals for <EM>" + get_name() + "</EM></ H1><P>\n";
         while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
+            com.cmcc.polymorphism.Rental each = (com.cmcc.polymorphism.Rental) rentals.nextElement();
             //show figures for each rental
             result += each.get_movie().get_title() + ": " +
                     String.valueOf(each.getCharge()) + "<BR>\n";
@@ -56,15 +57,13 @@ public class Customer {
                 String.valueOf(getTotalFrequentRenterPoints()) +
                 "</EM> frequent renter points<P>";
         return result;
-
-
     }
 
     private double getTotalCharge() {
         double result = 0;
         Enumeration rentals = _rentals.elements();
         while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
+            com.cmcc.polymorphism.Rental each = (com.cmcc.polymorphism.Rental) rentals.nextElement();
             result += each.getCharge();
         }
         return result;
@@ -75,13 +74,8 @@ public class Customer {
         Enumeration rentals = _rentals.elements();
         while (rentals.hasMoreElements()) {
             Rental each = (Rental) rentals.nextElement();
-            if ((each.get_movie().get_priceCode() == com.cmcc.good2.Movie.NEW_RELEASE)
-                    && each.get_daysRented() > 1) {
-                result += 2;
-            }
-            result += 1;
+            result += each.getFrequentRenterPoints();
         }
         return result;
     }
-
 }
